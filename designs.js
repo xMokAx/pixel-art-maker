@@ -3,12 +3,16 @@ const sizePicker = document.getElementById('sizePicker');
 
 // When size is submitted by the user, call makeGrid()
 sizePicker.addEventListener('submit', e => {
+    const startTime = performance.now();
     e.preventDefault();
     const grid = document.getElementById('grid');
     if (document.contains(grid)) {
         grid.remove();
     }
     makeGrid();
+
+    const endTime = performance.now();
+    console.log("time1: ", endTime - startTime);
 });
 //creating a grid depending on the user input
 function makeGrid() {
@@ -22,15 +26,12 @@ function makeGrid() {
     for (let i=0; i < gridHeight; i++) {
         let row = document.createElement("tr");
         row.className = 'row';
+        for (let j = 0; j < gridWidth; j++) {
+            row.insertCell(-1);
+        }
         grid.appendChild(row);
     }
     //creating cells on each row depending on the width input
-    const rows = document.getElementsByClassName('row');
-    for (let r = 0; r < rows.length; r++) {
-        for (let j = 0; j < gridWidth; j++) {
-            rows[r].insertCell(0);
-        }
-    }
     //change cell color on click
     grid.addEventListener('click', e => {
         const pickedColor = document.getElementById('colorPicker').value;
