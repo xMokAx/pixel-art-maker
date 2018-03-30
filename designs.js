@@ -24,7 +24,7 @@ function makeGrid() {
     grid.id = 'grid';
 
     //creating rows depending on the height input
-    for (let i=0; i < gridHeight; i++) {
+    for (let i = 0; i < gridHeight; i++) {
         let row = document.createElement("tr");
         row.className = 'row';
         //creating cells on each row depending on the width input
