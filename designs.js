@@ -5,10 +5,12 @@ const sizePicker = document.getElementById('sizePicker');
 sizePicker.addEventListener('submit', e => {
     const startTime = performance.now();
     e.preventDefault();
-    const grid = document.getElementById('grid');
-    if (document.contains(grid)) {
-        grid.remove();
+    const gridContainer = document.getElementById('pixel_canvas');
+
+    while (gridContainer.firstChild) {
+        gridContainer.removeChild(gridContainer.firstChild);
     }
+
     makeGrid();
 
     const endTime = performance.now();
@@ -19,9 +21,8 @@ function makeGrid() {
     const gridHeight = document.getElementById('input_height').value;
     const gridWidth = document.getElementById('input_width').value;
     const gridContainer = document.getElementById('pixel_canvas');
-    const grid = document.createElement("tbody");
-    gridContainer.appendChild(grid);
-    grid.id = 'grid';
+
+    const fragment = document.createDocumentFragment();
 
     //creating rows depending on the height input
     for (let i = 0; i < gridHeight; i++) {
@@ -31,11 +32,13 @@ function makeGrid() {
         for (let j = 0; j < gridWidth; j++) {
             row.insertCell(-1);
         }
-        grid.appendChild(row);
+        fragment.appendChild(row);
     }
 
+    gridContainer.appendChild(fragment);
+
     //change cell color on click
-    grid.addEventListener('click', e => {
+    gridContainer.addEventListener('click', e => {
         const pickedColor = document.getElementById('colorPicker').value;
         if (e.target.tagName === 'TD') {
             e.target.style.backgroundColor = pickedColor;
