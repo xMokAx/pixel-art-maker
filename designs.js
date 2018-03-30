@@ -22,16 +22,18 @@ function makeGrid() {
     const grid = document.createElement("tbody");
     gridContainer.appendChild(grid);
     grid.id = 'grid';
+
     //creating rows depending on the height input
     for (let i=0; i < gridHeight; i++) {
         let row = document.createElement("tr");
         row.className = 'row';
+        //creating cells on each row depending on the width input
         for (let j = 0; j < gridWidth; j++) {
             row.insertCell(-1);
         }
         grid.appendChild(row);
     }
-    //creating cells on each row depending on the width input
+
     //change cell color on click
     grid.addEventListener('click', e => {
         const pickedColor = document.getElementById('colorPicker').value;
